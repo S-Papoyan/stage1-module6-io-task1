@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FileReader {
 
-    public static Profile getDataFromFile(File file) {
+    public Profile getDataFromFile(File file) {
         StringBuilder temp = new StringBuilder();
         try (FileInputStream in = new FileInputStream(file)) {
             int ch;
