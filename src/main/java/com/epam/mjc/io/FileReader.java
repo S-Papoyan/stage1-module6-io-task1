@@ -8,7 +8,9 @@ public class FileReader {
 
     public Profile getDataFromFile(File file) {
         StringBuilder temp = new StringBuilder();
-        try (FileInputStream in = new FileInputStream(file)) {
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(file);
             int ch;
             while ((ch = in.read()) != -1) {
                 char a = (char) ch;
@@ -16,6 +18,14 @@ public class FileReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         String[] split = temp.toString().split("\r\n");
         String[] values = new String[4];
