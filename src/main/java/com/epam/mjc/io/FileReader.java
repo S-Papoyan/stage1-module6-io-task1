@@ -7,21 +7,22 @@ import java.io.IOException;
 public class FileReader {
 
     public Profile getDataFromFile(File file) {
-        StringBuilder temp = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         try (FileInputStream in = new FileInputStream(file)) {
             int ch;
             while ((ch = in.read()) != -1) {
-                char a = (char) ch;
-                temp.append(a);
+                builder.append((char) ch);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] split = temp.toString().split("\r\n");
+
+        String string = builder.toString();
+        String[] split = string.split("\n");
         String[] values = new String[4];
         for (int i = 0; i < split.length; i++) {
-            String[] split1 = split[i].split(": ");
-            values[i] = split1[1];
+            String[] split1 = split[i].split(":", 2);
+            values[i] = split1[1].trim();
         }
         return new Profile(values[0], Integer.parseInt(values[1]), values[2], Long.parseLong(values[3]));
     }
